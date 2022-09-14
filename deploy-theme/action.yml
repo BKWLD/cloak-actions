@@ -1,0 +1,15 @@
+name: Deploy Theme
+
+runs:
+  using: composite
+  steps:
+
+    # Install Themekit
+    - shell: bash
+      run: curl -s https://raw.githubusercontent.com/Shopify/themekit/master/scripts/install.py | python
+
+    # Deploy theme using Themekit
+    - shell: bash
+      run: |
+        cd shopify-theme
+        theme deploy --env=$APP_ENV --nodelete --allow-live

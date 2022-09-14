@@ -1,0 +1,24 @@
+name: APP_ENV from Branch
+description: Determine the APP_ENV from the branch name
+
+runs:
+  using: composite
+  steps:
+
+    - name: Map git branch to APP_ENV
+      run: |
+        case $GITHUB_REF_NAME in
+
+          main | master
+            echo "APP_ENV=prod" >> $GITHUB_ENV
+            ;;
+
+          "deploy/uat"
+            echo "APP_ENV=uat" >> $GITHUB_ENV
+            ;;
+
+          *)
+            echo "APP_ENV=dev" >> $GITHUB_ENV
+            ;;
+
+        esac
