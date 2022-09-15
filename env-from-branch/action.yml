@@ -5,7 +5,8 @@ runs:
   using: composite
   steps:
 
-    - name: Map git branch to APP_ENV
+    # Map git branch to APP_ENV
+    - shell: bash
       run: |
         case $GITHUB_REF_NAME in
 
