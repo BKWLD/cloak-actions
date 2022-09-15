@@ -25,4 +25,4 @@ runs:
 
     # Install Yarn deps
     - shell: bash
-      run: yarn install --frozen-lockfile --silent
+      run: yarn install --frozen-lockfile
