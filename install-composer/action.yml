@@ -1,0 +1,26 @@
+name: Install
+description: Install Yarn dependencies
+
+inputs:
+  version:
+    description: Composer Version
+    default: 2
+
+runs:
+  using: composite
+  steps:
+
+    # Cache Composer deps
+    - uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ hashFiles('composer.lock') }}
+
+    # Use Composer 1
+    - if: inputs.version == 1
+      shell: bash
+      run: composer self-update --1
+
+    # Install Composer deps
+    - shell: bash
+      run: composer install --prefer-dist
