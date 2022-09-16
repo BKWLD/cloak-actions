@@ -10,11 +10,11 @@ runs:
       run: |
         case $GITHUB_REF_NAME in
 
-          main | master
+          main | master)
             echo "APP_ENV=prod" >> $GITHUB_ENV
             ;;
 
-          "deploy/uat"
+          "deploy/uat")
             echo "APP_ENV=uat" >> $GITHUB_ENV
             ;;
 
