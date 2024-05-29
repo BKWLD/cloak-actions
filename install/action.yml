@@ -1,6 +1,11 @@
 name: Install
 description: Install Yarn dependencies
 
+inputs:
+  cwd:
+    description: 'Directory containing yarn.lock'
+    default: '.'
+
 runs:
   using: composite
   steps:
@@ -12,17 +17,9 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version-file: .nvmrc
-
-    # Not using caching from setup-node because I do want to cache the
-    # node_modules to speed up yarn install.
-    - uses: actions/cache@v4
-      with:
-        path: |
-          /home/runner/.cache/Cypress
-          node_modules
-          */node_modules
-        key: ${{ hashFiles('yarn.lock') }}
+        cache: yarn
+        cache-dependency-path: ${{ inputs.cwd }}/yarn.lock
 
     # Install Yarn deps
     - shell: bash
-      run: yarn install --frozen-lockfile
+      run: yarn install --frozen-lockfile --cwd=${{ inputs.cwd }}
