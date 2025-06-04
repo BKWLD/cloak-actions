@@ -12,7 +12,8 @@ runs:
     # Checkout the repo
     - uses: actions/checkout@v4
       with:
-        ref: ${{ github.ref_name }}
+        # So that we can commit from an PR triggered action
+        ref: ${{ github.event.pull_request.head.ref }}
 
     # Install node
     - uses: actions/setup-node@v4
