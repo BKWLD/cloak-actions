@@ -1,4 +1,5 @@
 # cloak-actions
+
 GitHub Actions for Cloak projects
 
 ## Usage
@@ -10,7 +11,7 @@ jobs:
   job_name:
     runs-on: ubuntu-latest
     steps:
-      - uses: bkwld/cloak-actions/install@v2
+      - uses: bkwld/cloak-actions/install@v3
         # The following is optional
         with:
           cwd: packages/ugc-housekeeper
