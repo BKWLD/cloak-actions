@@ -3,15 +3,17 @@ description: Install Yarn dependencies
 
 inputs:
   cwd:
-    description: 'Directory containing yarn.lock'
-    default: '.'
+    description: "Directory containing yarn.lock"
+    default: "."
 
 runs:
   using: composite
   steps:
-
     # Checkout the repo
     - uses: actions/checkout@v4
+      with:
+        # So that we can commit from an PR triggered action
+        ref: ${{ github.event.pull_request.head.ref }}
 
     # Install node
     - uses: actions/setup-node@v4
