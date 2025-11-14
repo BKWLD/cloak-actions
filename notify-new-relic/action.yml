@@ -1,0 +1,27 @@
+name: Notify New Relic
+description: Standardize usage of New Relic track changes feature
+
+inputs:
+  apiKey:
+    description: "New Relic API Key for authentication"
+    required: true
+  workloadEntityGuid:
+    description: "New Relic workload entity GUID to track deployments"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+    - uses: newrelic/deployment-marker-action@v2.3.0
+      with:
+        apiKey: ${{ inputs.apiKey }}
+        guid: ${{ inputs.workloadEntityGuid }}
+        version: ${{ env.SHORT_SHA }}
+        user: ${{ github.actor }}
+        commit: ${{ github.sha }}
+        description: ${{ github.event.head_commit.message }}
+        changelog: "${{ github.server_url }}/${{ github.repository }}/commits/main"
+        deeplink: "${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}"
