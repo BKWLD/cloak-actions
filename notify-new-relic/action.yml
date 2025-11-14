@@ -3,8 +3,10 @@ description: Standardize usage of New Relic track changes feature
 
 inputs:
   apiKey:
+    description: "New Relic API Key for authentication"
     required: true
   workloadEntityGuid:
+    description: "New Relic workload entity GUID to track deployments"
     required: true
 
 runs:
